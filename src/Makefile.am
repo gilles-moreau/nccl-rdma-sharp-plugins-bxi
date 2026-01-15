@@ -15,7 +15,7 @@ libnccl_net_la_LDFLAGS  = $(LDFLAGS)
 libnccl_net_la_SOURCES = \
 	ibvwrap.c \
 	utils.c	\
-        param.c \
+  param.c \
 	socket.c \
 	p2p_plugin.c \
 	ib_plugin.c
@@ -26,6 +26,7 @@ libnccl_net_la_LIBADD   += $(UCX_LIBADD)
 libnccl_net_la_LDFLAGS  += $(UCX_LDFLAGS) 
 libnccl_net_la_SOURCES  += \
 	ucx_plugin.c \
+	ucx_bxi_plugin.c \
 	ucx_rma_plugin.c \
 	ucx_uct_lib.c \
 	ucx_uct_plugin.c \

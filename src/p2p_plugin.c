@@ -18,6 +18,13 @@
 #include "p2p_plugin.h"
 
 #ifdef HAVE_UCX_PLUGIN
+extern ncclNet_v11_t ucxBxiPlugin_v11;
+extern ncclNet_v10_t ucxBxiPlugin_v10;
+extern ncclNet_v9_t ucxBxiPlugin_v9;
+extern ncclNet_v8_t ucxBxiPlugin_v8;
+extern ncclNet_v7_t ucxBxiPlugin_v7;
+extern ncclNet_v6_t ucxBxiPlugin_v6;
+
 extern ncclNet_v11_t ucxPlugin_v11;
 extern ncclNet_v10_t ucxPlugin_v10;
 extern ncclNet_v9_t ucxPlugin_v9;
@@ -133,6 +140,7 @@ static void pluginSetup()
     if (!strcasecmp(p2p_layer, "ib")) p2p_plugin = NCCL_P2P_IB;
 #ifdef HAVE_UCX_PLUGIN
     else if (!strcasecmp(p2p_layer, "ucx")) p2p_plugin = NCCL_P2P_UCX;
+    else if (!strcasecmp(p2p_layer, "ucx_bxi")) p2p_plugin = NCCL_P2P_UCX_BXI;
     else if (!strcasecmp(p2p_layer, "ucx_rma")) p2p_plugin = NCCL_P2P_UCX_RMA;
     else if (!strcasecmp(p2p_layer, "ucx_uct")) p2p_plugin = NCCL_P2P_UCX_UCT;
     else if (!strcasecmp(p2p_layer, "ucx_uct_read")) p2p_plugin = NCCL_P2P_UCX_UCT_RD;
@@ -143,6 +151,15 @@ static void pluginSetup()
   }
   switch (p2p_plugin) {
 #ifdef HAVE_UCX_PLUGIN
+    case NCCL_P2P_UCX_BXI:
+      ncclNetPlugin_v11 = ucxBxiPlugin_v11;
+      ncclNetPlugin_v10 = ucxBxiPlugin_v10;
+      ncclNetPlugin_v9 = ucxBxiPlugin_v9;
+      ncclNetPlugin_v8 = ucxBxiPlugin_v8;
+      ncclNetPlugin_v7 = ucxBxiPlugin_v7;
+      ncclNetPlugin_v6 = ucxBxiPlugin_v6;
+   
+      break;
     case NCCL_P2P_UCX:
       ncclNetPlugin_v11 = ucxPlugin_v11;
       ncclNetPlugin_v10 = ucxPlugin_v10;
