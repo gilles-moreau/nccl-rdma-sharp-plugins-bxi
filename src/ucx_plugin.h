@@ -69,6 +69,7 @@ typedef struct ucx_listen_comm {
 
 typedef struct connect_msg {
   size_t addr_len;
+  ucp_ep_conn_key_t conn_key;
 } connect_msg_t;
 
 typedef struct ucx_gpu_flush {

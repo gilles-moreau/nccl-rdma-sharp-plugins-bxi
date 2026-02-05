@@ -479,7 +479,7 @@ ncclNet_v11_t ucxBxiPlugin_v11 = {.name = "UCX_BXI",
                                   nccl_ucx_finalize,
                                   nccl_ucx_setNetAttr};
 
-ncclNet_v10_t ucxBxiPlugin_v10 = {.name = "UCX",
+ncclNet_v10_t ucxBxiPlugin_v10 = {.name = "UCX_BXI",
                                   .init = nccl_ucx_bxi_init_v10,
                                   .devices = nccl_ucx_bxi_devices,
                                   .getProperties =
@@ -501,7 +501,7 @@ ncclNet_v10_t ucxBxiPlugin_v10 = {.name = "UCX",
                                   NULL /* irecvConsumed */,
                                   NULL};
 
-ncclNet_v9_t ucxBxiPlugin_v9 = {.name = "UCX",
+ncclNet_v9_t ucxBxiPlugin_v9 = {.name = "UCX_BXI",
                                 .init = nccl_ucx_bxi_init_v9,
                                 .devices = nccl_ucx_bxi_devices,
                                 .getProperties = nccl_ucx_bxi_get_properties_v9,
@@ -523,7 +523,7 @@ ncclNet_v9_t ucxBxiPlugin_v9 = {.name = "UCX",
                                 NULL};
 
 ncclNet_v8_t ucxBxiPlugin_v8 = {
-    .name = "UCX",
+    .name = "UCX_BXI",
     .init = nccl_ucx_bxi_init_v9,
     .devices = nccl_ucx_bxi_devices,
     .getProperties = nccl_ucx_bxi_get_properties_v8,
@@ -545,7 +545,7 @@ ncclNet_v8_t ucxBxiPlugin_v8 = {
 };
 
 ncclNet_v7_t ucxBxiPlugin_v7 = {
-    .name = "UCX",
+    .name = "UCX_BXI",
     .init = nccl_ucx_bxi_init_v9,
     .devices = nccl_ucx_bxi_devices,
     .getProperties = nccl_ucx_bxi_get_properties_v7,
@@ -566,7 +566,7 @@ ncclNet_v7_t ucxBxiPlugin_v7 = {
     NULL /* irecvConsumed */
 };
 
-ncclNet_v6_t ucxBxiPlugin_v6 = {.name = "UCX",
+ncclNet_v6_t ucxBxiPlugin_v6 = {.name = "UCX_BXI",
                                 .init = nccl_ucx_bxi_init_v9,
                                 .devices = nccl_ucx_bxi_devices,
                                 .getProperties = nccl_ucx_bxi_get_properties_v6,

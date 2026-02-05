@@ -567,8 +567,10 @@ ucx_accept_check:
   }
 
   NCCLCHECK(ncclSocketRecv(&r_comm->sock, peer_addr, peer_addr_len));
-  ep_params.field_mask = UCP_EP_PARAM_FIELD_REMOTE_ADDRESS;
+  ep_params.field_mask = UCP_EP_PARAM_FIELD_REMOTE_ADDRESS | 
+    UCP_EP_PARAM_FIELD_FLAGS;
   ep_params.address    = peer_addr;
+  ep_params.flags      = UCP_EP_PARAMS_FLAGS_CREATE_CONN_KEY;
   UCXCHECK(ucp_ep_create(r_comm->ucx_worker->worker, &ep_params, &r_comm->ep));
   NCCLCHECK(ncclSocketRecv(&r_comm->sock, &r_comm->ctag, sizeof(ucp_tag_t)));
 
@@ -726,8 +728,10 @@ out_check_status:
   comm->connect_req = NULL;
 
 out_set_ready:
-  ep_params.field_mask = UCP_EP_PARAM_FIELD_REMOTE_ADDRESS;
+  ep_params.field_mask = UCP_EP_PARAM_FIELD_REMOTE_ADDRESS | 
+    UCP_EP_PARAM_FIELD_CONN_KEY;
   ep_params.address    = (ucp_address_t*)(comm->msg + 1);
+  ep_params.conn_key   = comm->msg->conn_key;
   UCXCHECK(ucp_ep_create(comm->ucx_worker->worker, &ep_params, &comm->ep));
   comm->ready = 1;
   free(comm->msg);
@@ -751,6 +755,7 @@ void check_handler(void *request, ucs_status_t status, void *user_data) {
 ncclResult_t ucx_recv_check(ucx_comm_t *comm) {
   ucp_request_param_t params;
   ucp_address_t       *my_addr;
+  ucp_ep_attr_t       ep_attr;
   size_t              local_addr_len;
   size_t              msg_len;
 
@@ -762,9 +767,13 @@ ncclResult_t ucx_recv_check(ucx_comm_t *comm) {
                                       &local_addr_len));
   nccl_ucx_add_ep(comm->ucx_worker, &comm->sock);
 
+  ep_attr.field_mask = UCP_EP_ATTR_FIELD_CONN_KEY;
+  ucp_ep_query(comm->ep, &ep_attr);
+
   msg_len             = sizeof(connect_msg_t) + local_addr_len;
   comm->msg           = calloc(1, msg_len);
   comm->msg->addr_len = local_addr_len;
+  comm->msg->conn_key = ep_attr.conn_key;
   memcpy(comm->msg + 1, my_addr, local_addr_len);
 
   params.op_attr_mask = UCP_OP_ATTR_FIELD_CALLBACK |
