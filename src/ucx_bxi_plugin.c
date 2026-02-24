@@ -86,7 +86,7 @@ ncclResult_t nccl_ucx_api_get_properties(int dev, ncclNetProperties_t *props) {
 
 ncclResult_t
 nccl_ucx_bxi_get_properties_v10(int dev, ncclNetProperties_v10_t *props_v10) {
-  ncclNetProperties_t props;
+  ncclNetProperties_t props = {0};
   ncclResult_t ret = nccl_ucx_bxi_get_properties(nccl_bxi_devs, dev, &props);
   if (ret != ncclSuccess)
     return ret;
@@ -114,7 +114,7 @@ nccl_ucx_bxi_get_properties_v10(int dev, ncclNetProperties_v10_t *props_v10) {
 
 ncclResult_t nccl_ucx_bxi_get_properties_v9(int dev,
                                             ncclNetProperties_v9_t *props_v9) {
-  ncclNetProperties_t props;
+  ncclNetProperties_t props = {0};
   ncclResult_t ret = nccl_ucx_bxi_get_properties(nccl_bxi_devs, dev, &props);
   if (ret != ncclSuccess)
     return ret;
@@ -142,7 +142,7 @@ ncclResult_t nccl_ucx_bxi_get_properties_v9(int dev,
 
 ncclResult_t nccl_ucx_bxi_get_properties_v8(int dev,
                                             ncclNetProperties_v8_t *props_v8) {
-  ncclNetProperties_t props;
+  ncclNetProperties_t props = {0};
   ncclResult_t ret = nccl_ucx_bxi_get_properties(nccl_bxi_devs, dev, &props);
   if (ret != ncclSuccess)
     return ret;
@@ -163,7 +163,7 @@ ncclResult_t nccl_ucx_bxi_get_properties_v8(int dev,
 
 ncclResult_t nccl_ucx_bxi_get_properties_v7(int dev,
                                             ncclNetProperties_v7_t *props_v7) {
-  ncclNetProperties_t props;
+  ncclNetProperties_t props = {0};
   ncclResult_t ret = nccl_ucx_bxi_get_properties(nccl_bxi_devs, dev, &props);
   if (ret != ncclSuccess)
     return ret;
@@ -183,7 +183,7 @@ ncclResult_t nccl_ucx_bxi_get_properties_v7(int dev,
 
 ncclResult_t nccl_ucx_bxi_get_properties_v6(int dev,
                                             ncclNetProperties_v6_t *props_v6) {
-  ncclNetProperties_t props;
+  ncclNetProperties_t props = {0};
   ncclResult_t ret = nccl_ucx_bxi_get_properties(nccl_bxi_devs, dev, &props);
   if (ret != ncclSuccess)
     return ret;
@@ -343,7 +343,7 @@ ncclResult_t nccl_ucx_bxi_iface_init(int *nDevs, nccl_bxi_dev_t *nccl_bxi_devs,
       }
 
       // Detect BXI cards
-      int nbxi_devs;
+      int nbxi_devs = 0;
 
       if (ncclSuccess !=
           nccl_ucx_bxi_get_device_list(&nbxi_devs, nccl_bxi_devs)) {
